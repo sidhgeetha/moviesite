@@ -21,6 +21,6 @@ mongoose
   })
 
   .catch((error) => {
-    console.log("Connection failed", error.message);
+    console.log("Connection failled", error.message);
   });
 //index.js for db connectivity & application sever connectivity
