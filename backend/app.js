@@ -1,14 +1,20 @@
 // require express dependency
 
 const express = require("express");
+const app = express();
 
 // create express server application
 
 //import middleware
 
 const cors = require('cors');
+const morgan =  require('morgan');
+const cookieParser = require("cookie-parser");
 
-const app = express();
+app.use(morgan('dev'));
+app.use(cookieParser());
+
+
 
 app.use(cors())
 

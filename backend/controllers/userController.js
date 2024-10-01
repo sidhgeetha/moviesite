@@ -133,7 +133,7 @@ const userController = {
     // response.json({message:'User signed up'})
     try {
       //get user inpiut
-      const { username, password, name } = request.body;
+      const { username, password, name,location, role } = request.body;
 
       const user = await User.findOne({ username });
 
@@ -152,10 +152,21 @@ const userController = {
         username,
         passwordHash,
         name,
+        location, 
+        role
       });
+
       const savedUser = await newUser.save();
 
-      response.json({ message: "user created", user: savedUser });
+// remove password from saved user
+    //   savedUser.passwordHash =  undefined;
+
+      response.json({ message: "user created", user: {
+   username:savedUser.username,
+   name: savedUser.name,
+   location:  savedUser.location,
+   role: savedUser.role,
+    } });
     } catch (error) {
       response.status(500).json({ message: error.message });
     }
@@ -185,6 +196,14 @@ const userController = {
         },
         config.JWT_SECRET
       );
+
+     // set a cookie with the token
+            response.cookie("token", token, {
+              httpOnly: true,
+              sameSite: "none",
+              expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours f
+              secure: true,
+            });
 
       response.json({ message: "User logged in", token });
     } catch (error) {
