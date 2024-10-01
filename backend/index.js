@@ -2,21 +2,25 @@
 
 const mongoose = require("mongoose");
 
-// const config = require("./utils/config");
 
-console.log("connecting to MongoDB...");
+
+const config = require("./utils/config");
+
+
 
 const app = require("./app"); //connecting to MOongoDB
 
+console.log("connecting to MongoDB...");
+
 mongoose
   .connect(
-    "mongodb+srv://sidhgeetha:Guvi2024@cluster0.gts1nzk.mongodb.net/loginpage1"
+    config.MONGODB_URI
   )
 
   .then(() => {
     console.log("connected to MongoDB");
-    app.listen(3001, () => {
-      console.log("server is running on port 3001");
+    app.listen(config.PORT, () => {
+      console.log("server is running on port 3002");
     });
   })
 
