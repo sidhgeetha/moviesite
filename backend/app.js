@@ -1,22 +1,37 @@
 // require express dependency
 
 const express = require("express");
-const app = express();
+
+// import cors
+const cors = require ('cors');
+
+// require morgan for logging
+const morgan = require("morgan");
+
+
+// require cookie-parser for parsing cookies
+const cookieParser = require("cookie-parser");
 
 // create express server application
+const app = express();
 
 //import middleware
 
-const cors = require('cors');
-const morgan =  require('morgan');
-const cookieParser = require("cookie-parser");
-
 app.use(morgan('dev'));
+
 app.use(cookieParser());
 
 
 
-app.use(cors())
+app.use(
+  cors({
+    origin: [
+      
+      "http://localhost:5173",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
